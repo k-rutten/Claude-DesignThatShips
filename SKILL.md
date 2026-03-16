@@ -222,26 +222,35 @@ After every feature, capture what you learned:
 
 ## Client Context Repo
 
-Per client, maintain a context folder. This is the shared knowledge base that makes every feature faster than the last.
+Eén repo per klant. Meerdere prototypes (features) leven in dezelfde repo. De gedeelde context compoundt over features heen — feature 1 is traag, feature 5 gaat 40% sneller.
 
 ```
 client-name/
-├─ briefing.md        ← Living document, updated by Brief Agent every iteration
-├─ constraints.md     ← Tech + platform constraints
-├─ patterns.md        ← Confirmed patterns, grows per feature
-├─ ui-kit.md          ← Extracted from Figma or product
+├─ briefing.md          ← Living document, updated by Brief Agent every iteration
+├─ constraints.md       ← Tech + platform constraints (gedeeld over alle features)
+├─ patterns.md          ← Confirmed patterns, grows per feature (compound learning)
+├─ ui-kit.md            ← Extracted from Figma or product (gedeeld)
+├─ insights.md          ← Kevin's eigen inzichten — gelezen elke sessie
+├─ backlog.md           ← Link naar project backlog + relevante items
+├─ figma-links.md       ← Figma files, UI kits, coverage per scherm
 ├─ sources/
-│  ├─ Links to SharePoint, DevOps wiki, Figma
-│  └─ Transcripts, meeting notes, research
+│  ├─ meetings/         ← Meeting transcripties (YYYY-MM-DD-onderwerp.md)
+│  ├─ screenshots/      ← Referentiescreenshots van de ontwerper (visuele inspiratie)
+│  └─ [overige docs]    ← SharePoint exports, wiki pagina's, feedback
 └─ features/
-   └─ [feature-name]/
-      ├─ brief.md     ← What we tested, what we found, recommendation
-      └─ learnings.md ← What worked, what didn't, patterns confirmed
+   ├─ [feature-a]/
+   │  ├─ brief.md       ← What we tested, what we found, recommendation
+   │  └─ learnings.md   ← What worked, what didn't, patterns confirmed
+   └─ [feature-b]/
+      ├─ brief.md
+      └─ learnings.md
 ```
 
-**First time setup:** User shares links (SharePoint, Figma, Azure DevOps wiki) in chat. The **Context Agent** processes each link: records it in `sources/`, extracts content, routes it to the right file, and notes the source for traceability. See `agents/context-agent.md` → Source Processing.
+**First time setup:** Run the Context Agent's "Client Repo Setup" protocol. It creates the folder structure from `templates/client-context/`, then asks you to fill in `insights.md`, `figma-links.md`, `backlog.md`, and `ui-kit.md`.
 
-**Every feature after:** Context Agent bootstraps the session by reading all context files. After shipping, Context Agent writes learnings and updates patterns. The repo compounds.
+**Every feature after:** Context Agent bootstraps the session by reading all context files — including new entries in `insights.md`, new meeting transcripties in `sources/meetings/`, and new screenshots in `sources/screenshots/`. After shipping, Context Agent writes learnings and updates patterns. The repo compounds.
+
+**Backlog access:** `backlog.md` bevat een link naar de project backlog (Azure DevOps, Jira, Linear). De Brief Agent checkt deze bij intake om de feature request te verifiëren tegen wat er gepland staat.
 
 For the template structure, read `templates/client-context/`.
 

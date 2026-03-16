@@ -1,46 +1,83 @@
 # Design That Ships
 
-Compressed design process for building prototypes that validate feature assumptions through iterative constraint-driven design.
+Compressed design process for building B2B prototypes that prove whether a feature works — not just how it looks.
 
-Inspired by Nolan Perkins' deploy-first philosophy. Sharpened for B2B prototyping where business changes course, tech has limits, and UX must work within platform realities.
+## What is this?
 
-## Pipeline
+A 4-agent prototype pipeline that turns a feature request into a ship-ready prototype through iterative constraint-driven design. Built for Claude Code / Cowork.
 
-```
-Feature Request → Challenge → Constraint Map → Iteration Cycle → Decision → Ship Ready → Knowledge Capture
-```
+**Agents:**
+- **Context Agent** — Team memory. Maintains constraints, patterns, and client context across sessions.
+- **Brief Agent** — Strategy. Challenges the request, writes the briefing, manages the decision gate.
+- **UX Agent** — Design. Diagnoses, explores patterns, proposes design candidates with scenario simulation.
+- **Tech Agent** — Build. Scaffolds code on Vercel, runs accessibility and performance validation.
 
-## Structure
+## Getting Started
 
-```
-design-that-ships/
-├─ SKILL.md              ← Pipeline instructions (use as Claude skill)
-├─ agents/
-│  ├─ brief-agent.md     ← Maintains living briefing, challenges assumptions
-│  ├─ ux-agent.md        ← Redesigns interactions on UX friction
-│  └─ tech-agent.md      ← Finds workarounds on tech blockers
-└─ templates/
-   ├─ client-context/    ← Copy per client, fill in, let it grow
-   │  ├─ briefing.md
-   │  ├─ constraints.md
-   │  ├─ patterns.md
-   │  ├─ ui-kit.md
-   │  └─ features/
-   ├─ feature-brief.md   ← Per feature: what we tested, what we found
-   └─ feature-learnings.md ← Per feature: what worked, what didn't
+### 1. Clone and setup
+
+```bash
+git clone [repo-url]
+cd Claude-DesignThatShips
+./setup.sh    # Installs MCP servers for design research + component generation
 ```
 
-## Usage
+### 2. Open in Claude Code
 
-### As a Claude skill
-Copy `design-that-ships/` to your skills directory. The skill triggers on prototype-related prompts and guides you through the pipeline.
+```bash
+claude    # Claude reads CLAUDE.md automatically
+```
 
-### Per client
-Copy `templates/client-context/` into your client project. Fill in the context. Every feature adds to `patterns.md` — the system gets smarter over time.
+### 3. Start prototyping
 
-### Per feature
-Start with a feature request. The pipeline challenges it, maps constraints, iterates through design candidates with scenario simulation, and delivers a ship-ready prototype with tested assumptions.
+```
+> Ik wil een feature bouwen voor [klantnaam]
+```
 
-## Credits
+Claude runs the intake, sets up a client context repo if needed, and starts the pipeline.
 
-Built by Kevin Rutten / Blis Digital. Pipeline philosophy from Nolan Perkins. Process compression concept from NN/g (Gibbons & Wang, 2026).
+## Client Context
+
+One repo per client. Multiple features compound shared context (constraints, patterns, UI kit).
+
+```
+client-name/
+├─ briefing.md       ← Living strategy doc
+├─ constraints.md    ← Tech + platform limits
+├─ patterns.md       ← Confirmed patterns (grows per feature)
+├─ ui-kit.md         ← Design tokens from Figma
+├─ insights.md       ← Your own observations
+├─ sources/          ← Meetings, screenshots, docs
+└─ features/         ← One folder per prototype
+```
+
+## MCP Servers
+
+| Server | What it does | Setup |
+|--------|-------------|-------|
+| ui-ux-pro-mcp | 1920+ design reference docs | `./setup.sh` |
+| ux-mcp-server | Pattern generation + accessibility | `./setup.sh` |
+| magic-mcp | React component generation | `./setup.sh` (needs API key) |
+| Figma MCP | Design token extraction | Manual install |
+| Microsoft Graph | SharePoint client docs | Manual install |
+
+## Speed Tiers
+
+- **Quick (60 min)** — Clear hypothesis, existing patterns. 1 concept, 3 scenarios.
+- **Standard (90-120 min)** — Moderate uncertainty. 2 concepts, 4-6 scenarios.
+- **Deep (120-180 min)** — High uncertainty. 3 concepts, 6+ scenarios.
+
+## Repo Structure
+
+```
+├─ CLAUDE.md          ← Auto-read by Claude Code
+├─ SKILL.md           ← Full pipeline instructions
+├─ setup.sh           ← MCP server installation
+├─ agents/            ← Agent definitions
+│  ├─ context-agent.md
+│  ├─ brief-agent.md
+│  ├─ ux-agent.md
+│  └─ tech-agent.md
+├─ references/        ← Quality bar, design references
+└─ templates/         ← Client context repo template
+```

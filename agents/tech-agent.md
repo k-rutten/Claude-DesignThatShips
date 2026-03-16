@@ -215,7 +215,7 @@ The team decides which route to take.
 
 | Tool | When | What for |
 |---|---|---|
-| **magic-mcp (21st.dev)** | Step 2 + Step 3 | Generate component scaffolds from behavior descriptions |
+| **magic-mcp (21st.dev)** | Step 2 + Step 3 | Generate component scaffolds from behavior descriptions. Requires API key (free in beta). |
 | **ui-ux-pro-mcp** | Step 3 + Step 5 | `get_design_system` for token structure when building from scratch |
 | **ux-mcp-server** → `check_contrast` | Step 4b | WCAG contrast compliance on built components |
 | **ux-mcp-server** → `analyze_accessibility` | Step 4b | WCAG violation scan on HTML/CSS |

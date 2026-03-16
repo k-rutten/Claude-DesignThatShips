@@ -263,7 +263,7 @@ Three MCP servers, each with a distinct role. Use at the specific moments indica
 | `get_screenshot` | Step 1: visual reference | Screenshot of existing designs for comparison |
 
 ### Referenced in output only
-- **magic-mcp (21st.dev)** — Include a component description in the Tech handoff field. The Tech Agent calls it, not you.
+- **magic-mcp (21st.dev)** — Requires API key from 21st.dev console (free in beta). Include a component description in the Tech handoff field. The Tech Agent calls it, not you.
 
 ### Visual reference from the designer
 Reference screenshots in `sources/` are the strongest inspiration source. They show intent, not just documentation. Check `sources/` before every Step 2.

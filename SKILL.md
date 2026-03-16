@@ -282,7 +282,7 @@ These MCP servers accelerate the pipeline when connected. None are required — 
 - **ux-mcp-server** (`npx @elsahafy/ux-mcp-server`) — 23 tools + 28 knowledge bases. Pattern suggestion, colour/typography generation, dark pattern detection, accessibility analysis, IA evaluation. Free, no API key. Split across agents: UX Agent uses generative + UX validation tools; Tech Agent uses code-level validation tools.
 
 **Component generation:**
-- **magic-mcp / 21st.dev** (`npx -y @21st-dev/magic@latest`) — Generate production-ready React/TypeScript components from natural language. Speeds up Code Scaffold. API key needed (free in beta).
+- **magic-mcp / 21st.dev** (`npx -y @21st-dev/magic@latest`) — Generate production-ready React/TypeScript components from natural language. Speeds up Code Scaffold. Requires API key from 21st.dev console (free in beta). Setup: `claude mcp add magic -- npx -y @21st-dev/magic@latest` with `API_KEY` env var.
 
 **When to use them:**
 - Constraint Map → `ui-ux-pro-mcp` search_ux_guidelines for platform patterns

@@ -42,6 +42,8 @@ If any answer is vague: ask once more, specifically. Don't proceed until all fiv
 
 These five answers become the foundation of briefing v1 and the measuring stick at the Decision gate.
 
+**Derive the organizing concept** from intake answers 1 + 2. State it in 3 words or fewer. Confirm with the user before proceeding. This concept drives every design decision — if it's not defined, the output will feel generic.
+
 **Determine speed tier** based on the intake answers (see SKILL.md → Timing):
 - **Quick** — low uncertainty, clear hypothesis, existing patterns apply
 - **Standard** — moderate uncertainty, default for most features
@@ -70,6 +72,11 @@ When a new feature request arrives:
 
    ## Primary User
    [One role, specific]
+
+   ## Organizing Concept
+   [3 words maximum. The one idea that drives every design decision for this product.
+   Not a tagline — the single truth about what this product does.
+   Example: Linear → "speed / craft / precision". Stripe → "invisible / frictionless / developer-first".]
 
    ## Assumptions
    - [ ] [Assumption 1 — testable via prototype]
@@ -150,6 +157,22 @@ When the UX Agent or Tech Agent hands back their output, you run a quick alignme
 If all clear → continue to next iteration.
 If misaligned → brief correction back to the agent before building further. One sentence is enough: "The workaround skips the decision step we're trying to test. Can you preserve that, even if mocked?"
 
+### The Quality Ladder — Hold This Bar
+
+Every output from the pipeline sits on one of five levels. Know which level it's at. Push it higher.
+
+- **Functional** — Works. User can complete the task. → Never acceptable as final output.
+- **Good** — Follows principles. Consistent tokens. No bad decisions. → Foundation, not finish line.
+- **Polished** — Detail obsession. Brand signal present. Interactions feel intentional. → Minimum bar for anything reaching a user.
+- **Exquisite** — Has a soul. Every detail serves the organizing concept. Emotionally resonant. → The target for every deliverable.
+- **Iconic** — People reference it as a benchmark. → Not achievable in a sprint, but Exquisite gets you there.
+
+**In every Decision gate:**
+- Name the current quality level explicitly
+- Name what would move it one level higher
+- Don't accept Good when Polished is achievable in one focused pass
+
+
 ### Decision Gate — Quality Ownership
 
 You own the Decision gate. After each iteration, you evaluate whether the prototype meets the bar.
@@ -161,7 +184,9 @@ You own the Decision gate. After each iteration, you evaluate whether the protot
    - ❌ Disproven — evidence from scenario [N], what we learned
    - ❓ Untested — needs different scenario or more iteration
 
-2. **UX quality checklist.** Run `references/design-checklist.md` as pass/fail. For any failure: describe the behavior that's wrong, not just the label. If MCP is connected, use `ui-ux-pro-mcp` → `search_ux_guidelines` to find the specific principle that explains the failure.
+2. **Quality level** — Name the current level on the Quality Ladder (Functional → Good → Polished → Exquisite). What specific change would push it one level higher?
+
+3. **UX quality checklist.** Run `references/design-checklist.md` as pass/fail. For any failure: describe the behavior that's wrong, not just the label. If MCP is connected, use `ui-ux-pro-mcp` → `search_ux_guidelines` to find the specific principle that explains the failure.
    - [ ] One primary action per screen — immediately identifiable?
    - [ ] Primary CTA large and close to where attention already is?
    - [ ] Related elements grouped, same-level actions look the same?
@@ -169,15 +194,15 @@ You own the Decision gate. After each iteration, you evaluate whether the protot
    - [ ] Every interactive element has hover/focus state? Loading/empty/error states present?
    - [ ] Color contrast ≥4.5:1? Color never the only signal?
 
-3. **Tech check.** Does it work within known constraints? Any new blockers discovered?
+4. **Tech check.** Does it work within known constraints? Any new blockers discovered?
 
-4. **Severity classification** for any fails:
+5. **Severity classification** for any fails:
    - **P0 Blocker** — Breaks the primary user flow. Don't ship.
    - **P1 Must fix** — Hierarchy failure, missing states, legibility issues. Fix before shipping.
    - **P2 Should fix** — Single inconsistency, sub-optimal timing. Fix next iteration.
    - **P3 Nice to have** — Taste-level refinement. Log for later.
 
-5. **Route the outcome:**
+6. **Route the outcome:**
 
 | Outcome | Action |
 |---|---|

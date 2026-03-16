@@ -316,9 +316,71 @@ The system gets faster as patterns and context compound.
 
 ---
 
+---
+
+## Concept Validation — Dry Run Mode
+
+Use Concept Validation when a concept already exists and the question is: **does it solve the right problem — and is it designable and buildable?** No prototyping. Evaluation only.
+
+**When to use:**
+- "Validate this concept before we build"
+- "Does this direction hold up?"
+- "Check if this is the right approach"
+- A concept from a previous feature or stakeholder request needs pressure-testing
+
+**What you ask (Concept Validation Intake):**
+
+```
+1. What is the concept? (one paragraph — direction, core flow, key decisions)
+2. What problem does it claim to solve? (one sentence)
+3. Who is the primary user? (role + context)
+4. What does success look like? (the outcome, not the feature)
+```
+
+**What you evaluate — in sequence, no building:**
+
+1. **Brief Agent** — Problem validity: does the concept answer the right question? Are the assumptions testable?
+2. **UX Agent** — Designability: is the UX sound? Can this be designed without fundamental compromises? Use MCP to find precedent.
+3. **Tech Agent** — Build feasibility: is this architecturally viable at prototype scale? Any showstoppers?
+
+**Each agent delivers:**
+- A focused verdict (2-3 sentences max)
+- Top 2 supporting reasons
+- One risk or open question
+
+**Output — Concept Validation Report:**
+
+```markdown
+## Concept Validation Report
+
+Concept: [name]
+Problem claim: [what it says it solves]
+
+### Problem dimension (Brief Agent)
+[2-3 sentences]
+Verdict: Valid ✓ / Misaligned ✗ / Partially ⚠️
+
+### Design dimension (UX Agent)
+[2-3 sentences]
+Verdict: Sound ✓ / Compromised ✗ / Conditional ⚠️
+
+### Build dimension (Tech Agent)
+[2-3 sentences]
+Verdict: Feasible ✓ / Blocked ✗ / Conditional ⚠️
+
+### Overall verdict
+- ✅ Validated — proceed to prototype
+- ⚠️ Partially — [dimension] needs rework before building
+- ✗ Off-target — concept doesn't solve the stated problem
+```
+
+Concept Validation is fast (15-20 min) and prevents wasted build cycles on concepts that don't hold up.
+
+
 ## When to Use This Skill
 
-- Starting a new prototype for a client feature
+- Validating a concept direction before committing to a build
+
 - Setting up a client context repo for the first time
 - Resuming work on a feature after a business pivot
 - Reviewing scenarios and edge cases for a prototype

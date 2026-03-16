@@ -86,7 +86,22 @@ If no MCP is connected at all: describe the friction in concrete behavioral term
 
 Give 2-3 options with trade-offs when the trade-off is meaningful. When the fix is obvious (e.g., a clear Gestalt violation with one correct grouping), say so and explain why — don't invent alternatives for the sake of options.
 
-**Use ui-ux-pro-mcp at each decision point:**
+**Before proposing — find inspiration:**
+
+Don't design in a vacuum. Before writing your options, use ui-ux-pro-mcp to explore how the problem space has been solved elsewhere:
+
+| What you need | Tool call | Example query |
+|---|---|---|
+| How do real products handle this pattern? | `search_products` | "role-based permission configuration SaaS" |
+| What visual approaches exist for this surface? | `search_ui_styles` | "data-dense dashboard card layout" |
+| What UX patterns are documented for this interaction? | `search_ux_guidelines` | "bulk editing table rows enterprise" |
+| What icon/visual conventions exist? | `search_icons` | "status indicators permission levels" |
+
+This is generative, not diagnostic. You're not looking for what's wrong — you're looking for what's possible. The diagnosis (Step 1) tells you what failed. The inspiration search tells you what exists as a starting point for your redesign.
+
+Name the inspiration source in your options: "Approach inspired by [product/pattern from search_products]" or "Following [guideline from search_ux_guidelines]." This makes the reasoning traceable.
+
+**Then use ui-ux-pro-mcp at each design decision:**
 
 | Decision | Tool call | What it gives you |
 |---|---|---|
@@ -198,9 +213,10 @@ When connected, use these at the specific moments indicated:
 
 | Tool | When | What for |
 |---|---|---|
-| **ui-ux-pro-mcp** → `search_ux_guidelines` | Step 1: Diagnose | Find the psychology principle that explains the root cause |
-| **ui-ux-pro-mcp** → `search_products` | Step 1: Diagnose | Documented patterns per industry — how real products solve this |
-| **ui-ux-pro-mcp** → `search_ui_styles` | Step 1 + Step 2 | Visual style patterns per industry/surface type |
+| **ui-ux-pro-mcp** → `search_ux_guidelines` | Step 1: Diagnose + Step 2: inspiration | Root cause principle (diagnostic) + UX pattern research (generative) |
+| **ui-ux-pro-mcp** → `search_products` | Step 1: Diagnose + Step 2: inspiration | How real products solve this pattern — both for diagnosis and as design starting point |
+| **ui-ux-pro-mcp** → `search_ui_styles` | Step 2: inspiration + design direction | Visual style patterns per industry/surface — explore before committing to a direction |
+| **ui-ux-pro-mcp** → `search_icons` | Step 2: inspiration | Icon and visual conventions for the interaction type |
 | **ui-ux-pro-mcp** → `search_colors` | Step 2: colour decision | Documented colour rationale per use case |
 | **ui-ux-pro-mcp** → `search_typography` | Step 2: type decision | Type scale recommendations for the surface |
 | **ui-ux-pro-mcp** → `search_stack` | Step 2: framework constraint | Framework-specific implementation patterns |

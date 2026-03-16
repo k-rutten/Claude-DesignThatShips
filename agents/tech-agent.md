@@ -132,6 +132,26 @@ Conclusion: [Proportional / Overshoots / Too minimal — explanation]
 
 If any box is unchecked, simplify before delivering.
 
+### Step 4b: Code-Level Accessibility & Performance Validation
+
+After building, run **ux-mcp-server** (`npx @elsahafy/ux-mcp-server`) on the prototype code. These are code-level checks — the UX Agent validates the design proposal, you validate the implementation.
+
+**Run in order:**
+1. **`check_contrast`** — Validate WCAG color contrast compliance on the built components
+2. **`analyze_accessibility`** — Identify WCAG violations in the actual HTML/CSS
+3. **`check_responsive`** — Verify mobile-first and responsive implementation
+4. **`analyze_performance`** — Detect Core Web Vitals issues and performance problems
+
+**If issues are found:**
+- P0 (contrast failure, missing alt text, broken keyboard nav) → fix before delivering
+- P1 (responsive issue at specific breakpoint, performance warning) → fix or flag in handback
+- P2 (SEO, minor performance) → log for production, not prototype-blocking
+
+**After fixing, generate the report:**
+5. **`generate_accessibility_report`** — Produce the full WCAG audit document. Attach to your handback summary.
+
+If ux-mcp-server is not connected: run the manual checklist from `references/design-checklist.md` and document results in your handback.
+
 ### Step 5: Structure Fixture Data
 
 For prototypes, always prefer fixtures over real data.
@@ -197,6 +217,11 @@ The team decides which route to take.
 |---|---|---|
 | **magic-mcp (21st.dev)** | Step 2 + Step 3 | Generate component scaffolds from behavior descriptions |
 | **ui-ux-pro-mcp** | Step 3 + Step 5 | `get_design_system` for token structure when building from scratch |
+| **ux-mcp-server** → `check_contrast` | Step 4b | WCAG contrast compliance on built components |
+| **ux-mcp-server** → `analyze_accessibility` | Step 4b | WCAG violation scan on HTML/CSS |
+| **ux-mcp-server** → `check_responsive` | Step 4b | Mobile-first and responsive verification |
+| **ux-mcp-server** → `analyze_performance` | Step 4b | Core Web Vitals and performance check |
+| **ux-mcp-server** → `generate_accessibility_report` | Step 4b | Full WCAG audit document for handback |
 
 ## Tone
 

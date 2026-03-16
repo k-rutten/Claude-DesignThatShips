@@ -278,18 +278,18 @@ Read the agent files for detailed prompts and behavior.
 These MCP servers accelerate the pipeline when connected. None are required — the pipeline works without them — but they make design research and component building significantly faster.
 
 **Design research & patterns:**
-- **ui-ux-pro-mcp** (`npx ui-ux-pro-mcp`) — 1920+ curated design docs: styles, colors, typography, charts, UX guidelines, icons. Plus design system generation. Free, no API key.
-- **studio-design-mcp** — Mobbin + Dribbble + Pinterest search for real-world UI patterns and flows.
-- **ux-mcp-server** — UX analysis toolkit: accessibility checking, contrast validation, dark pattern detection.
+- **ui-ux-pro-mcp** (`npx ui-ux-pro-mcp`) — 1920+ curated design docs: styles, colors, typography, charts, UX guidelines, icons. Plus design system generation. Free, no API key. Used by UX Agent for diagnosis, inspiration, and design decisions.
+- **ux-mcp-server** (`npx @elsahafy/ux-mcp-server`) — 23 tools + 28 knowledge bases. Pattern suggestion, colour/typography generation, dark pattern detection, accessibility analysis, IA evaluation. Free, no API key. Split across agents: UX Agent uses generative + UX validation tools; Tech Agent uses code-level validation tools.
 
 **Component generation:**
 - **magic-mcp / 21st.dev** (`npx -y @21st-dev/magic@latest`) — Generate production-ready React/TypeScript components from natural language. Speeds up Code Scaffold. API key needed (free in beta).
 
 **When to use them:**
 - Constraint Map → `ui-ux-pro-mcp` search_ux_guidelines for platform patterns
-- Design Candidate → `studio-design-mcp` for reference flows, `ui-ux-pro-mcp` for color/typography decisions
+- Design Candidate → `ui-ux-pro-mcp` for reference patterns + color/typography; `ux-mcp-server` suggest_pattern + generate_color_palette for generation; reference screenshots in `sources/` for visual inspiration
 - Code Scaffold → `magic-mcp` to generate components, `ui-ux-pro-mcp` get_design_system for token structure
-- Decision → `ux-mcp-server` for accessibility validation
+- After Code Scaffold → `ux-mcp-server` check_contrast + analyze_accessibility + check_responsive on the build (Tech Agent)
+- Decision → `ux-mcp-server` detect_dark_patterns for UX validation (UX Agent)
 
 ---
 

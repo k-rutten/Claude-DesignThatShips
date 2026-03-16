@@ -79,7 +79,8 @@ Before proposing solutions, articulate the problem:
 - **How do others solve this?** Two sources, in order:
   1. **ui-ux-pro-mcp** → `search_products` + `search_ui_styles` — find documented patterns per industry and interaction type. This gives textual reference: how real products handle this pattern, with rationale.
   2. **Figma MCP** → `get_design_context` — when a Figma frame is linked, pull the visual context to check existing design decisions and precedent in the current product.
-  3. If neither is connected: describe the expected pattern from `patterns.md` in concrete behavioral terms.
+  3. **Reference screenshots** — If the designer has dropped reference screenshots in `sources/`, use them. Visual reference from the human designer is the strongest inspiration source — it shows intent, not just documentation.
+  4. If none of the above is available: describe the expected pattern from `patterns.md` in concrete behavioral terms.
 
 If no MCP is connected at all: describe the friction in concrete behavioral terms and reference `references/design-checklist.md` as a fallback.
 ### Step 2: Propose Alternatives
@@ -90,12 +91,16 @@ Give 2-3 options with trade-offs when the trade-off is meaningful. When the fix 
 
 Don't design in a vacuum. Before writing your options, use ui-ux-pro-mcp to explore how the problem space has been solved elsewhere:
 
-| What you need | Tool call | Example query |
+| What you need | Tool | Example query |
 |---|---|---|
-| How do real products handle this pattern? | `search_products` | "role-based permission configuration SaaS" |
-| What visual approaches exist for this surface? | `search_ui_styles` | "data-dense dashboard card layout" |
-| What UX patterns are documented for this interaction? | `search_ux_guidelines` | "bulk editing table rows enterprise" |
-| What icon/visual conventions exist? | `search_icons` | "status indicators permission levels" |
+| How do real products handle this pattern? | **ui-ux-pro-mcp** → `search_products` | "role-based permission configuration SaaS" |
+| What visual approaches exist for this surface? | **ui-ux-pro-mcp** → `search_ui_styles` | "data-dense dashboard card layout" |
+| What UX patterns are documented for this interaction? | **ui-ux-pro-mcp** → `search_ux_guidelines` | "bulk editing table rows enterprise" |
+| What icon/visual conventions exist? | **ui-ux-pro-mcp** → `search_icons` | "status indicators permission levels" |
+| What UI pattern fits this use case? | **ux-mcp-server** → `suggest_pattern` | "permission configuration with 15+ roles" |
+| What form layout works here? | **ux-mcp-server** → `recommend_form_pattern` | "multi-step role assignment form" |
+| What chart type for this data? | **ux-mcp-server** → `suggest_data_visualization` | "comparison across 4 permission levels" |
+| Designer dropped reference screenshots? | Check `sources/` folder | Visual reference from human designer — strongest source |
 
 This is generative, not diagnostic. You're not looking for what's wrong — you're looking for what's possible. The diagnosis (Step 1) tells you what failed. The inspiration search tells you what exists as a starting point for your redesign.
 
@@ -103,13 +108,16 @@ Name the inspiration source in your options: "Approach inspired by [product/patt
 
 **Then use ui-ux-pro-mcp at each design decision:**
 
-| Decision | Tool call | What it gives you |
+| Decision | Tool | What it gives you |
 |---|---|---|
-| Colour choice in redesign | `search_colors` with context (e.g., "status colors B2B dashboard") | Documented colour rationale per use case |
-| Typography change | `search_typography` with context (e.g., "data table type scale") | Type scale recommendations for the surface |
-| Visual style direction | `search_ui_styles` with context (e.g., "enterprise form layout") | Style patterns per industry/surface |
-| Framework constraint | `search_stack` with context (e.g., "React table component") | Framework-specific implementation patterns |
-| Token handoff to Tech Agent | `get_design_system` | Full token structure for the redesign proposal |
+| Colour choice in redesign | **ui-ux-pro-mcp** → `search_colors` | Documented colour rationale per use case |
+| Generate a full colour palette | **ux-mcp-server** → `generate_color_palette` | Accessible colour system from a base colour |
+| Typography change | **ui-ux-pro-mcp** → `search_typography` | Type scale recommendations for the surface |
+| Generate a type scale | **ux-mcp-server** → `generate_typography_scale` | Modular ratio-based type scale |
+| Visual style direction | **ui-ux-pro-mcp** → `search_ui_styles` | Style patterns per industry/surface |
+| Framework constraint | **ui-ux-pro-mcp** → `search_stack` | Framework-specific implementation patterns |
+| Microcopy for the redesign | **ux-mcp-server** → `suggest_microcopy` | UX writing for buttons, labels, empty states |
+| Token handoff to Tech Agent | **ui-ux-pro-mcp** → `get_design_system` | Full token structure for the redesign proposal |
 
 Each tool call has a concrete decision moment — don't call them speculatively.
 ```markdown
@@ -139,9 +147,13 @@ Each tool call has a concrete decision moment — don't call them speculatively.
 ```
 ### Step 3: Validate
 
-Before finalizing the recommendation, run the accessibility check.
+Before finalizing the recommendation, validate on two levels: UX-level (your job) and code-level (Tech Agent's job).
 
-**Primary:** Use **ui-ux-pro-mcp** → `search_ux_guidelines` with a WCAG-specific query (e.g., "WCAG contrast requirements form inputs", "accessible color combinations data visualization") to get guideline-backed validation criteria.
+**Your validation (UX-level) — run these checks:**
+
+1. **Dark pattern scan:** Use **ux-mcp-server** → `detect_dark_patterns` on your proposed redesign. Flag anything found as P0.
+2. **Information architecture check:** If the redesign changes navigation or flow structure, use **ux-mcp-server** → `analyze_information_architecture` to validate.
+3. **UX guidelines check:** Use **ui-ux-pro-mcp** → `search_ux_guidelines` with a WCAG-specific query to get guideline-backed criteria.
 
 **Then verify against this checklist — every item must pass:**
 
@@ -153,6 +165,8 @@ Before finalizing the recommendation, run the accessibility check.
 - [ ] **Error identification:** Errors described in text, not just color — with specific fix instruction
 
 Document which items pass and which fail. Failed items become P1 issues in the handback.
+
+**Code-level validation is the Tech Agent's job.** After the build, the Tech Agent runs `check_contrast`, `analyze_accessibility`, `check_responsive`, and `generate_accessibility_report` on the actual prototype code. See `agents/tech-agent.md` → Step 3.
 ### Done Condition — All Four Must Pass
 
 Before handing back, verify your output meets these four criteria. If any fails, your output is incomplete.
@@ -209,21 +223,50 @@ If you notice a pattern from `patterns.md` that should be invalidated based on y
 These patterns grow over time via `patterns.md`. The Context Agent owns that file.
 ## MCP Design Tools
 
-When connected, use these at the specific moments indicated:
+Three MCP servers, each with a distinct role. Use at the specific moments indicated.
+
+### ui-ux-pro-mcp — Knowledge & Documentation (1920+ resources)
+`npx ui-ux-pro-mcp` · No API key · Searches documented patterns, guidelines, and design references.
 
 | Tool | When | What for |
 |---|---|---|
-| **ui-ux-pro-mcp** → `search_ux_guidelines` | Step 1: Diagnose + Step 2: inspiration | Root cause principle (diagnostic) + UX pattern research (generative) |
-| **ui-ux-pro-mcp** → `search_products` | Step 1: Diagnose + Step 2: inspiration | How real products solve this pattern — both for diagnosis and as design starting point |
-| **ui-ux-pro-mcp** → `search_ui_styles` | Step 2: inspiration + design direction | Visual style patterns per industry/surface — explore before committing to a direction |
-| **ui-ux-pro-mcp** → `search_icons` | Step 2: inspiration | Icon and visual conventions for the interaction type |
-| **ui-ux-pro-mcp** → `search_colors` | Step 2: colour decision | Documented colour rationale per use case |
-| **ui-ux-pro-mcp** → `search_typography` | Step 2: type decision | Type scale recommendations for the surface |
-| **ui-ux-pro-mcp** → `search_stack` | Step 2: framework constraint | Framework-specific implementation patterns |
-| **ui-ux-pro-mcp** → `get_design_system` | Step 2: token handoff | Full token structure for Tech Agent |
-| **Figma MCP** → `get_design_context` | Step 1: when frame linked | Visual context from existing design files |
+| `search_ux_guidelines` | Step 1 + Step 2 + Step 3 | Root cause principle (diagnostic) + UX pattern research (generative) + WCAG queries |
+| `search_products` | Step 1 + Step 2 | How real products solve this pattern — diagnosis and inspiration |
+| `search_ui_styles` | Step 2: inspiration + design direction | Visual style patterns per industry/surface |
+| `search_icons` | Step 2: inspiration | Icon and visual conventions |
+| `search_colors` | Step 2: colour decision | Documented colour rationale per use case |
+| `search_typography` | Step 2: type decision | Type scale recommendations for the surface |
+| `search_stack` | Step 2: framework constraint | Framework-specific implementation patterns |
+| `get_design_system` | Step 2: token handoff | Full token structure for Tech Agent |
 
-**Not called by this agent — referenced in output only:**
-- **magic-mcp (21st.dev)** — Component generation from natural language. When the redesign needs a new component, include a description in the Tech handoff field of your output. The Tech Agent calls magic-mcp, not you. This keeps 21st.dev's 1000+ production component library available without polluting this agent's tool scope.
+### ux-mcp-server — Generation & UX Validation (23 tools, 28 knowledge bases)
+`npx @elsahafy/ux-mcp-server` · No API key · Generates design artifacts and validates UX decisions.
 
-**Fallback when no MCP is connected:** Describe patterns from `patterns.md` and `references/design-checklist.md` in concrete behavioral terms. Every diagnosis must still name sizes, positions, and grid units — MCP provides rationale, not specificity. Specificity is always your job.
+| Tool | When | What for |
+|---|---|---|
+| `suggest_pattern` | Step 2: inspiration | Concrete UI pattern recommendation for the specific use case |
+| `recommend_form_pattern` | Step 2: form redesign | Optimal form layout and validation approach |
+| `suggest_data_visualization` | Step 2: data display | Chart type matched to data category |
+| `generate_color_palette` | Step 2: colour generation | Accessible colour system from a base colour |
+| `generate_typography_scale` | Step 2: type generation | Modular ratio-based type scale |
+| `suggest_microcopy` | Step 2: UX writing | Button labels, empty states, error text |
+| `detect_dark_patterns` | Step 3: validation | Flag deceptive UI practices — P0 if found |
+| `analyze_information_architecture` | Step 3: when flow changes | IA and navigation structure validation |
+
+**Not used by this agent** (Tech Agent's tools from ux-mcp-server):
+`check_contrast`, `analyze_accessibility`, `check_responsive`, `generate_accessibility_report`, `analyze_performance` — these validate code, not design proposals.
+
+### Figma MCP — Visual Context
+| Tool | When | What for |
+|---|---|---|
+| `get_design_context` | Step 1: when frame linked | Visual context from existing design files |
+| `get_screenshot` | Step 1: visual reference | Screenshot of existing designs for comparison |
+
+### Referenced in output only
+- **magic-mcp (21st.dev)** — Include a component description in the Tech handoff field. The Tech Agent calls it, not you.
+
+### Visual reference from the designer
+Reference screenshots in `sources/` are the strongest inspiration source. They show intent, not just documentation. Check `sources/` before every Step 2.
+
+### Fallback when no MCP is connected
+Describe patterns from `patterns.md` and `references/design-checklist.md` in concrete behavioral terms. Every diagnosis must still name sizes, positions, and grid units — MCP provides rationale, not specificity. Specificity is always your job.

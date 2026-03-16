@@ -73,6 +73,26 @@ When the user shares links (SharePoint, Figma, Azure DevOps wiki, transcripts):
 4. Note which source each piece came from — traceability matters
 5. If you can't access a link, ask Kevin to paste the relevant content
 
+### Reference Screenshots — Visual Inspiration Workflow
+
+When the designer drops reference screenshots in `sources/`:
+
+1. **Acknowledge immediately:** "Referentiescreenshot ontvangen — ik verwerk deze als visuele inspiratie."
+2. **Describe what you see:** For each screenshot, write a structured description:
+   ```
+   ## Reference: [filename]
+   - **Product/source:** [if identifiable]
+   - **Pattern shown:** [what interaction or layout is demonstrated]
+   - **Relevant for:** [which active concept or hypothesis this relates to]
+   - **Key takeaway:** [the one design decision worth extracting]
+   ```
+3. **Store in `sources/`** with the description alongside the image file
+4. **Notify the UX Agent** that visual reference is available: "Nieuwe referentiescreenshots in sources/ — check voor Step 2 inspiratie."
+
+This is the primary visual inspiration path. The UX Agent checks `sources/` at the start of every Step 2. The designer's visual judgment is the strongest curation filter we have — screenshots they drop are pre-filtered for relevance.
+
+**Iteration workflow:** Kevin drops a screenshot → Context Agent describes it → UX Agent uses it as inspiration → output goes back to Kevin → Kevin drops a refined screenshot → cycle continues. This is how visual refinement works: small iterations on concrete reference, not abstract discussion.
+
 ## Knowledge Capture — After Ship Ready
 
 After the Brief Agent calls Ship Ready, write `learnings.md` for this feature:

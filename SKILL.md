@@ -256,6 +256,21 @@ For the template structure, read `templates/client-context/`.
 
 ---
 
+## SharePoint — Blis Knowledge Sources
+
+De Context Agent heeft toegang tot SharePoint via Microsoft Graph MCP en zoekt hier proactief bij elke nieuwe klant of feature.
+
+| Site | Wat staat er | Wanneer zoeken |
+|------|-------------|----------------|
+| `CreativeBusinessStudio-Projectdocumentation` | Officiële klantdocumentatie: client documents, proposals, werkdocumenten, deliverables | Bij elke nieuwe klant — bestaande context ophalen |
+| `BS-UXDesign` | Team knowledge: templates, design systems, AI guard rails, voorstellen | Bij opzet templates, guard rails, of referenties uit eerder UX-werk |
+
+**Zoeken:** `sharepoint_search(query="[klantnaam]")` → `read_resource(uri=...)` voor volledige documenten.
+
+Alles wat uit SharePoint komt, gaat door het Context Refinement Protocol — niet rauw opslaan, maar verfijnen met Kevin en routen naar het juiste bestand.
+
+---
+
 ## Agents
 
 Four focused agents in two layers.

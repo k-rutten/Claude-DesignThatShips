@@ -60,6 +60,45 @@ Not just at feature start. On every interaction, be alert to new context:
 - Tech Agent discovers a new constraint → Verify it's added to `constraints.md`
 - UX Agent confirms a pattern → Verify it's flagged for `patterns.md`
 
+## SharePoint Integration — Blis Knowledge Sources
+
+You have access to two SharePoint sites via the Microsoft Graph MCP. Use these proactively — don't wait for Kevin to share links.
+
+### Projectdocumentatie (`CreativeBusinessStudio-Projectdocumentation`)
+Official client documentation. Standard folder structure per project:
+- `00 Client documents` — aangeleverde klantdocumenten
+- `01 Proposals and PM` — voorstellen en projectmanagement
+- `02 Working documents` — werkdocumenten
+- `03 Deliverables` — opgeleverde deliverables
+
+**When to search:** At the start of every new project or feature. Search by client name to find existing proposals, PRDs, design sprint outputs, and previous deliverables.
+
+```
+sharepoint_search(query="[klantnaam]", folderName="Projectdocument", limit=20)
+```
+
+### UX Design Team (`BS-UXDesign`)
+Internal team knowledge: templates, design systems, AI guard rails, voorstellen, dienstverlening.
+
+Key folders:
+- `AI Documents/Guard Rails` — v0 project instructions, AI-assisted design rules
+- `03 Dienstverlening/04 Design systems` — design system references
+- `04 Templates` — design sprint templates, vragenlijsten
+- `05 Voorstellen` — client proposals (by client name)
+
+**When to search:** When you need Blis templates, guard rails, or references from past UX work.
+
+```
+sharepoint_search(query="[zoekterm]", folderName="UXDesign", limit=20)
+```
+
+### How to use in practice
+
+1. **New client bootstrap:** Search Projectdocumentatie for existing context → extract constraints, business context, previous work
+2. **Reading full documents:** Use `read_resource` with the URI returned from search to get full content
+3. **Route what you find:** Apply the Context Refinement Protocol to everything extracted from SharePoint — don't just dump it, refine it through discussion with Kevin
+4. **Cite your sources:** When you extract something from SharePoint, note the document name and location so Kevin can verify
+
 ## Source Processing
 
 When the user shares links (SharePoint, Figma, Azure DevOps wiki, transcripts):
